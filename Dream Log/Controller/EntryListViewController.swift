@@ -22,18 +22,8 @@ class EntryListViewController: UITableViewController {
         tableView.register(UINib(nibName: "EntryTableViewCell", bundle: nil), forCellReuseIdentifier: "EntryCell")
         tableView.rowHeight = 50.0
         
-        let newEntry = Entry(context: context)
-        newEntry.title = "Flying through the woods"
-        newEntry.time = Date()
-        entryArray.append(newEntry)
+        loadData()
         
-        tableView.reloadData()
-        
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     //MARK: - TableView Datasource Methods
@@ -57,6 +47,66 @@ class EntryListViewController: UITableViewController {
     }
     
     //MARK: - TableView Delegate Methods
-
+    
+    
+    
+    //MARK: - Add New Entries
+    
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        
+        var textField = UITextField()
+        
+        let alert = UIAlertController(title: "Add New Entry", message: "", preferredStyle: .alert)
+        
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Entry Title"
+            textField = alertTextField
+        }
+        
+        let action = UIAlertAction(title: "Add", style: .default) { (action) in
+            
+            let newEntry = Entry(context: self.context)
+            newEntry.title = textField.text!
+            newEntry.time = Date()
+            
+            self.entryArray.append(newEntry)
+            
+            self.saveData()
+            
+        }
+        
+        alert.addAction(action)
+        
+        present(alert, animated: true, completion: nil)
+        
+    }
+    
+    //MARK: - Data Manipulation Methods
+    
+    func saveData() {
+        
+        do {
+            try context.save()
+        } catch {
+            print("error saving data \(error)")
+        }
+        
+        tableView.reloadData()
+        
+    }
+    
+    func loadData() {
+        
+        let request : NSFetchRequest<Entry> = Entry.fetchRequest()
+        
+        do {
+            entryArray = try context.fetch(request)
+        } catch {
+            print("error loading data \(error)")
+        }
+        
+        tableView.reloadData()
+        
+    }
 
 }

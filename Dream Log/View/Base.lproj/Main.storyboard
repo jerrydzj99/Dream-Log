@@ -37,7 +37,14 @@
                             <outlet property="delegate" destination="UKQ-j4-Dtf" id="LYP-Jy-6Cg"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Dream Log" id="JoO-FT-P4p"/>
+                    <navigationItem key="navigationItem" title="Dream Log" id="JoO-FT-P4p">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="VFe-57-I0F">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="addButtonPressed:" destination="UKQ-j4-Dtf" id="P38-HD-53X"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9fv-ts-V3v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
