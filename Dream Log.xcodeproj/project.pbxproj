@@ -15,6 +15,7 @@
 		AEA24A0020AE7BB6003367B1 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AEA249FE20AE7BB6003367B1 /* DataModel.xcdatamodeld */; };
 		AEA24A0320AE7D84003367B1 /* EntryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA24A0120AE7D84003367B1 /* EntryTableViewCell.swift */; };
 		AEA24A0420AE7D84003367B1 /* EntryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEA24A0220AE7D84003367B1 /* EntryTableViewCell.xib */; };
+		AEAFCD8720AF5FC7001CE827 /* EntryContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEAFCD8620AF5FC7001CE827 /* EntryContentViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		AEA249FF20AE7BB6003367B1 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		AEA24A0120AE7D84003367B1 /* EntryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryTableViewCell.swift; sourceTree = "<group>"; };
 		AEA24A0220AE7D84003367B1 /* EntryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EntryTableViewCell.xib; sourceTree = "<group>"; };
+		AEAFCD8620AF5FC7001CE827 /* EntryContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryContentViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				AEA249EB20AE75EA003367B1 /* EntryListViewController.swift */,
+				AEAFCD8620AF5FC7001CE827 /* EntryContentViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -177,6 +180,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AEAFCD8720AF5FC7001CE827 /* EntryContentViewController.swift in Sources */,
 				AEA249EC20AE75EA003367B1 /* EntryListViewController.swift in Sources */,
 				AEA24A0320AE7D84003367B1 /* EntryTableViewCell.swift in Sources */,
 				AEA24A0020AE7BB6003367B1 /* DataModel.xcdatamodeld in Sources */,
@@ -325,6 +329,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = W747UVW3WJ;
 				INFOPLIST_FILE = "Dream Log/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -342,6 +347,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = W747UVW3WJ;
 				INFOPLIST_FILE = "Dream Log/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

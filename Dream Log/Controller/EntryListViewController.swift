@@ -48,7 +48,20 @@ class EntryListViewController: UITableViewController {
     
     //MARK: - TableView Delegate Methods
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "goToEntryContent", sender: self)
+    }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        let destinationVC = segue.destination as! EntryContentViewController
+        destinationVC.delegate = self
+        
+        if let indexPath = tableView.indexPathForSelectedRow {
+            destinationVC.currentEntry = entryArray[indexPath.row]
+        }
+        
+    }
     
     //MARK: - Add New Entries
     
@@ -68,6 +81,7 @@ class EntryListViewController: UITableViewController {
             let newEntry = Entry(context: self.context)
             newEntry.title = textField.text!
             newEntry.time = Date()
+            newEntry.content = ""
             
             self.entryArray.append(newEntry)
             
@@ -109,4 +123,17 @@ class EntryListViewController: UITableViewController {
         
     }
 
+}
+
+//MARK: - Content Delegate Methods
+
+extension EntryListViewController: EntryContentViewControllerDelegate {
+    
+    func entryContentViewControllerDidDisappear(updatedEntry: Entry) {
+        if let indexPath = tableView.indexPathForSelectedRow {
+            entryArray[indexPath.row] = updatedEntry
+        }
+        saveData()
+    }
+    
 }
