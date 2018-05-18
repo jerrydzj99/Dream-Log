@@ -83,7 +83,7 @@ class EntryListViewController: UITableViewController {
             newEntry.time = Date()
             newEntry.content = ""
             
-            self.entryArray.append(newEntry)
+            self.entryArray.insert(newEntry, at: 0)
             
             self.saveData()
             
@@ -109,9 +109,9 @@ class EntryListViewController: UITableViewController {
         
     }
     
-    func loadData() {
+    func loadData(with request : NSFetchRequest<Entry> = Entry.fetchRequest()) {
         
-        let request : NSFetchRequest<Entry> = Entry.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "time", ascending: false)]
         
         do {
             entryArray = try context.fetch(request)
@@ -134,6 +134,33 @@ extension EntryListViewController: EntryContentViewControllerDelegate {
             entryArray[indexPath.row] = updatedEntry
         }
         saveData()
+    }
+    
+}
+
+//MARK: - SearchBar Delegate Methods
+
+extension EntryListViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        let request : NSFetchRequest<Entry> = Entry.fetchRequest()
+        
+        request.predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
+        
+        loadData(with: request)
+        
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        if searchBar.text?.count == 0 {
+            loadData()
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+        }
+        
     }
     
 }
