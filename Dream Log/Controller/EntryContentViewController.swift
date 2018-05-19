@@ -9,7 +9,7 @@
 import UIKit
 
 protocol EntryContentViewControllerDelegate {
-    func entryContentViewControllerDidDisappear(updatedEntry : Entry)
+    func entryContentViewControllerDidSaveData(updatedEntry : Entry)
 }
 
 class EntryContentViewController: UIViewController {
@@ -19,16 +19,23 @@ class EntryContentViewController: UIViewController {
     
     var delegate : EntryContentViewControllerDelegate?
     var currentEntry : Entry?
+    var timer : Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         titleLabel.text = currentEntry?.title
         contentTextView.text = currentEntry?.content
+        timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(saveData), userInfo: nil, repeats: true)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
+        timer!.invalidate()
+        saveData()
+    }
+    
+    @objc func saveData() {
         currentEntry?.content = contentTextView.text
-        delegate?.entryContentViewControllerDidDisappear(updatedEntry: currentEntry!)
+        delegate?.entryContentViewControllerDidSaveData(updatedEntry: currentEntry!)
     }
 
 }

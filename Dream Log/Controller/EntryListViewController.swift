@@ -129,7 +129,7 @@ class EntryListViewController: UITableViewController {
 
 extension EntryListViewController: EntryContentViewControllerDelegate {
     
-    func entryContentViewControllerDidDisappear(updatedEntry: Entry) {
+    func entryContentViewControllerDidSaveData(updatedEntry: Entry) {
         if let indexPath = tableView.indexPathForSelectedRow {
             entryArray[indexPath.row] = updatedEntry
         }
