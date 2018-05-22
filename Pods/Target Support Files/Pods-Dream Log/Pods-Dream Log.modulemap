@@ -1,0 +1,6 @@
+framework module Pods_Dream_Log {
+  umbrella header "Pods-Dream Log-umbrella.h"
+
+  export *
+  module * { export * }
+}
