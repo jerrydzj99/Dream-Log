@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		6BC329D3623B6B96AE925158 /* Pods_Dream_Log.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18AD45208CE97795A732FBD9 /* Pods_Dream_Log.framework */; };
+		AE53998020B48DD1002162C5 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE53997F20B48DD1002162C5 /* Entry.swift */; };
 		AEA249EA20AE75EA003367B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA249E920AE75EA003367B1 /* AppDelegate.swift */; };
 		AEA249EC20AE75EA003367B1 /* EntryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA249EB20AE75EA003367B1 /* EntryListViewController.swift */; };
 		AEA249EF20AE75EA003367B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEA249ED20AE75EA003367B1 /* Main.storyboard */; };
 		AEA249F420AE75EC003367B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AEA249F320AE75EC003367B1 /* Assets.xcassets */; };
 		AEA249F720AE75EC003367B1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEA249F520AE75EC003367B1 /* LaunchScreen.storyboard */; };
-		AEA24A0020AE7BB6003367B1 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AEA249FE20AE7BB6003367B1 /* DataModel.xcdatamodeld */; };
 		AEA24A0320AE7D84003367B1 /* EntryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA24A0120AE7D84003367B1 /* EntryTableViewCell.swift */; };
 		AEA24A0420AE7D84003367B1 /* EntryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEA24A0220AE7D84003367B1 /* EntryTableViewCell.xib */; };
 		AEAFCD8720AF5FC7001CE827 /* EntryContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEAFCD8620AF5FC7001CE827 /* EntryContentViewController.swift */; };
@@ -22,6 +22,7 @@
 /* Begin PBXFileReference section */
 		18AD45208CE97795A732FBD9 /* Pods_Dream_Log.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dream_Log.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		45496B8804FC03B9FB48E59A /* Pods-Dream Log.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dream Log.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dream Log/Pods-Dream Log.debug.xcconfig"; sourceTree = "<group>"; };
+		AE53997F20B48DD1002162C5 /* Entry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
 		AEA249E620AE75EA003367B1 /* Dream Log.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dream Log.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEA249E920AE75EA003367B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AEA249EB20AE75EA003367B1 /* EntryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryListViewController.swift; sourceTree = "<group>"; };
@@ -29,7 +30,6 @@
 		AEA249F320AE75EC003367B1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AEA249F620AE75EC003367B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AEA249F820AE75EC003367B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AEA249FF20AE7BB6003367B1 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		AEA24A0120AE7D84003367B1 /* EntryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryTableViewCell.swift; sourceTree = "<group>"; };
 		AEA24A0220AE7D84003367B1 /* EntryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EntryTableViewCell.xib; sourceTree = "<group>"; };
 		AEAFCD8620AF5FC7001CE827 /* EntryContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryContentViewController.swift; sourceTree = "<group>"; };
@@ -107,7 +107,7 @@
 		AEFF352520AE9ED300872ADB /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				AEA249FE20AE7BB6003367B1 /* DataModel.xcdatamodeld */,
+				AE53997F20B48DD1002162C5 /* Entry.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -247,10 +247,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE53998020B48DD1002162C5 /* Entry.swift in Sources */,
 				AEAFCD8720AF5FC7001CE827 /* EntryContentViewController.swift in Sources */,
 				AEA249EC20AE75EA003367B1 /* EntryListViewController.swift in Sources */,
 				AEA24A0320AE7D84003367B1 /* EntryTableViewCell.swift in Sources */,
-				AEA24A0020AE7BB6003367B1 /* DataModel.xcdatamodeld in Sources */,
 				AEA249EA20AE75EA003367B1 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -400,7 +400,10 @@
 				DEVELOPMENT_TEAM = W747UVW3WJ;
 				INFOPLIST_FILE = "Dream Log/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jerryding.Dream-Log";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -417,7 +420,10 @@
 				DEVELOPMENT_TEAM = W747UVW3WJ;
 				INFOPLIST_FILE = "Dream Log/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jerryding.Dream-Log";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -447,19 +453,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		AEA249FE20AE7BB6003367B1 /* DataModel.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				AEA249FF20AE7BB6003367B1 /* DataModel.xcdatamodel */,
-			);
-			currentVersion = AEA249FF20AE7BB6003367B1 /* DataModel.xcdatamodel */;
-			path = DataModel.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = AEA249DE20AE75EA003367B1 /* Project object */;
 }

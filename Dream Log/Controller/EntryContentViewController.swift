@@ -7,35 +7,40 @@
 //
 
 import UIKit
-
-protocol EntryContentViewControllerDelegate {
-    func entryContentViewControllerDidSaveData(updatedEntry : Entry)
-}
+import RealmSwift
 
 class EntryContentViewController: UIViewController {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var contentTextView: UITextView!
     
-    var delegate : EntryContentViewControllerDelegate?
+    let realm = try! Realm()
+    
     var currentEntry : Entry?
     var timer : Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        titleLabel.text = currentEntry?.title
-        contentTextView.text = currentEntry?.content
-        timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(saveData), userInfo: nil, repeats: true)
+        titleLabel.text = currentEntry!.title
+        contentTextView.text = currentEntry!.content
+        timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(updateData), userInfo: nil, repeats: true)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         timer!.invalidate()
-        saveData()
+        updateData()
     }
     
-    @objc func saveData() {
-        currentEntry?.content = contentTextView.text
-        delegate?.entryContentViewControllerDidSaveData(updatedEntry: currentEntry!)
+    @objc func updateData() {
+        
+        do {
+            try realm.write {
+                currentEntry!.content = contentTextView.text
+            }
+        } catch {
+            print("error updating data \(error)")
+        }
+        
     }
 
 }

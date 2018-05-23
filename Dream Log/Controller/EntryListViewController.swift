@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  EntryListViewController.swift
 //  Dream Log
 //
 //  Created by Jerry Ding on 2018-05-17.
@@ -7,13 +7,15 @@
 //
 
 import UIKit
-import CoreData
+import RealmSwift
 
 class EntryListViewController: UITableViewController {
     
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    @IBOutlet weak var searchBar: UISearchBar!
     
-    var entryArray = [Entry]()
+    let realm = try! Realm()
+    
+    var entries : Results<Entry>?
 
     override func viewDidLoad() {
         
@@ -29,18 +31,19 @@ class EntryListViewController: UITableViewController {
     //MARK: - TableView Datasource Methods
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return entryArray.count
+        guard let entriesCount = entries?.count else { fatalError("entries not found") }
+        return entriesCount
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "EntryCell", for: indexPath) as! EntryTableViewCell
 
-        cell.titleLabel.text = entryArray[indexPath.row].title
+        cell.titleLabel.text = entries![indexPath.row].title
 
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        cell.timeLabel.text = formatter.string(from: entryArray[indexPath.row].time!)
+        cell.timeLabel.text = formatter.string(from: entries![indexPath.row].time!)
         
         return cell
         
@@ -55,11 +58,10 @@ class EntryListViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         let destinationVC = segue.destination as! EntryContentViewController
-        destinationVC.delegate = self
         
-        if let indexPath = tableView.indexPathForSelectedRow {
-            destinationVC.currentEntry = entryArray[indexPath.row]
-        }
+        guard let indexPath = tableView.indexPathForSelectedRow else { fatalError("indexPath not found") }
+        
+        destinationVC.currentEntry = entries![indexPath.row]
         
     }
     
@@ -73,19 +75,25 @@ class EntryListViewController: UITableViewController {
         
         alert.addTextField { (alertTextField) in
             alertTextField.placeholder = "Entry Title"
+            alertTextField.autocorrectionType = .yes
             textField = alertTextField
         }
         
         let action = UIAlertAction(title: "Add", style: .default) { (action) in
             
-            let newEntry = Entry(context: self.context)
-            newEntry.title = textField.text!
-            newEntry.time = Date()
-            newEntry.content = ""
+            do {
+                try self.realm.write {
+                    let newEntry = Entry()
+                    newEntry.title = textField.text!
+                    newEntry.time = Date()
+                    newEntry.content = ""
+                    self.realm.add(newEntry)
+                }
+            } catch {
+                print("error creating data \(error)")
+            }
             
-            self.entryArray.insert(newEntry, at: 0)
-            
-            self.saveData()
+            self.tableView.reloadData()
             
         }
         
@@ -97,68 +105,42 @@ class EntryListViewController: UITableViewController {
     
     //MARK: - Data Manipulation Methods
     
-    func saveData() {
+    func loadData() {
         
-        do {
-            try context.save()
-        } catch {
-            print("error saving data \(error)")
-        }
-        
-        tableView.reloadData()
-        
-    }
-    
-    func loadData(with request : NSFetchRequest<Entry> = Entry.fetchRequest()) {
-        
-        request.sortDescriptors = [NSSortDescriptor(key: "time", ascending: false)]
-        
-        do {
-            entryArray = try context.fetch(request)
-        } catch {
-            print("error loading data \(error)")
-        }
+        entries = realm.objects(Entry.self).sorted(byKeyPath: "time", ascending: false)
         
         tableView.reloadData()
         
     }
 
-}
-
-//MARK: - Content Delegate Methods
-
-extension EntryListViewController: EntryContentViewControllerDelegate {
-    
-    func entryContentViewControllerDidSaveData(updatedEntry: Entry) {
-        if let indexPath = tableView.indexPathForSelectedRow {
-            entryArray[indexPath.row] = updatedEntry
-        }
-        saveData()
-    }
-    
 }
 
 //MARK: - SearchBar Delegate Methods
 
 extension EntryListViewController: UISearchBarDelegate {
     
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
-        let request : NSFetchRequest<Entry> = Entry.fetchRequest()
+        entries = entries!.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "time", ascending: false)
         
-        request.predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
-        
-        loadData(with: request)
+        tableView.reloadData()
         
     }
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         
-        if searchBar.text?.count == 0 {
-            loadData()
-            DispatchQueue.main.async {
-                searchBar.resignFirstResponder()
-            }
+        searchBar.text! = ""
+        
+        searchBar.setShowsCancelButton(false, animated: true)
+        
+        loadData()
+        
+        DispatchQueue.main.async {
+            searchBar.resignFirstResponder()
         }
         
     }
