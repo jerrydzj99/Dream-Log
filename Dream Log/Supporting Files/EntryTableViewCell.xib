@@ -46,6 +46,7 @@
                     <constraint firstItem="go7-bS-xQ3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="qxd-k2-WqQ"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="timeLabel" destination="M8A-tL-a0S" id="2CL-sj-RsL"/>

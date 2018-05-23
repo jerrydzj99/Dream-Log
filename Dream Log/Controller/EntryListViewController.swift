@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import SwipeCellKit
+import ChameleonFramework
 
 class EntryListViewController: UITableViewController {
     
@@ -24,8 +25,31 @@ class EntryListViewController: UITableViewController {
         
         tableView.register(UINib(nibName: "EntryTableViewCell", bundle: nil), forCellReuseIdentifier: "EntryCell")
         tableView.rowHeight = 80.0
+        tableView.separatorStyle = .none
         
         loadData()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        guard let navBar = navigationController?.navigationBar else { fatalError("navigation bar not found") }
+        guard let navView = navigationController?.view else { fatalError("navigation view not found") }
+        
+        // Setting NavView Colors
+        navView.backgroundColor = GradientColor(.topToBottom, frame: navView.frame, colors: [FlatPlum(),FlatSkyBlue()])
+        
+        // Setting NavBar Colors
+        let navBarColor = FlatPlum()
+        navBar.barTintColor = navBarColor
+        navBar.tintColor = ContrastColorOf(navBarColor, returnFlat: true)
+        navBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor : ContrastColorOf(navBarColor, returnFlat: true)]
+        
+        // Setting SearchBar Colors
+        searchBar.barTintColor = navView.backgroundColor!
+        searchBar.tintColor = ContrastColorOf(navView.backgroundColor!, returnFlat: true)
+        let searchField = searchBar.value(forKey: "searchField") as! UITextField
+        searchField.textColor = ContrastColorOf(navView.backgroundColor!, returnFlat: true)
         
     }
     
@@ -47,6 +71,8 @@ class EntryListViewController: UITableViewController {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         cell.timeLabel.text = formatter.string(from: entries![indexPath.row].time!)
+        cell.titleLabel.textColor = ContrastColorOf(navigationController!.view.backgroundColor!, returnFlat: true)
+        cell.timeLabel.textColor = ContrastColorOf(navigationController!.view.backgroundColor!, returnFlat: true)
         
         return cell
         
@@ -56,6 +82,7 @@ class EntryListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "goToEntryContent", sender: self)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -79,6 +106,7 @@ class EntryListViewController: UITableViewController {
         alert.addTextField { (alertTextField) in
             alertTextField.placeholder = "Entry Title"
             alertTextField.autocorrectionType = .yes
+            alertTextField.delegate = self
             textField = alertTextField
         }
         
@@ -148,6 +176,20 @@ extension EntryListViewController: UISearchBarDelegate {
             searchBar.resignFirstResponder()
         }
         
+    }
+    
+}
+
+//MARK: - TextField Delegate Methods
+
+extension EntryListViewController: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let maxLength = 22
+        let currentString: NSString = textField.text! as NSString
+        let newString: NSString =
+            currentString.replacingCharacters(in: range, with: string) as NSString
+        return newString.length <= maxLength
     }
     
 }
