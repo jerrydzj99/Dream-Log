@@ -8,5 +8,6 @@ target 'Dream Log' do
   # Pods for Dream Log
 
 pod 'RealmSwift'
+pod 'SwipeCellKit', :git => 'https://github.com/SwipeCellKit/SwipeCellKit.git', :branch => 'develop'
 
 end
